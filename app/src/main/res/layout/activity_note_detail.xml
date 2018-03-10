@@ -6,24 +6,26 @@
     android:layout_height="match_parent"
     tools:context="com.example.tengzhongwei.simplenote.NoteDetail">
 
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="onSaveButtonClick"
+        android:text="Save" />
+
     <EditText
         android:id="@+id/editNoteTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/saveButton"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/saveButton"
         android:ems="10"
         android:gravity="top"
         android:inputType="textMultiLine" />
 
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="onSaveButtonClick"
-        android:text="Save" />
+
 </RelativeLayout>

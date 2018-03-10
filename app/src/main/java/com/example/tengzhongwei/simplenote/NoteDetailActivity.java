@@ -23,7 +23,10 @@ public class NoteDetailActivity extends AppCompatActivity {
         } else {
             MainActivity.noteList.add(editNoteTextView.getText().toString());
         }
-        SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.tengzhongwei.simplenote", Context.MODE_PRIVATE);
+        // TODO... need to add Private Mode to allow only this app store data on this device (internal storage)
+        // TODO... File creation mode: the default mode, where the created file can only be accessed by the calling application (or all applications sharing the same user ID).
+        //SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.tengzhongwei.simplenote", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.tengzhongwei.simplenote", Context.MODE_MULTI_PROCESS);
         sharedPreferences.edit().putStringSet("noteList", new HashSet<String>(MainActivity.noteList)).apply();
         MainActivity.arrayAdapter.notifyDataSetChanged();
         finish();
