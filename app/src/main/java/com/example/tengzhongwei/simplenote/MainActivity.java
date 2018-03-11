@@ -16,15 +16,25 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.security.PrivateKey;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     ListView noteListView;
-    static ArrayList<String> noteList;
-    static ArrayAdapter<String> arrayAdapter;
+    static ArrayList<Note> noteList;
+    static NoteAdapter noteAdapter;
+    private SharedPreferences sharedPreferences;
+    private Gson gson;
+    private SimpleDateFormat sdf;
 
 
     @Override
@@ -44,22 +54,27 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        noteListView = findViewById(R.id.noteListView);
+    private void retrieveStorage(){
+        //        HashSet<String> hashSet = (HashSet<String>) sharedPreferences.getStringSet("noteList", null);
+//        if(hashSet != null){
+//            noteList = new ArrayList<>(hashSet);
+//        } else{
+//            noteList = new ArrayList<>();
+//        }
+        String jsonNoteList = sharedPreferences.getString("noteList","");
 
-        final SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.tengzhongwei.simplenote", Context.MODE_PRIVATE);
-        HashSet<String> hashSet = (HashSet<String>) sharedPreferences.getStringSet("noteList", null);
-        if(hashSet != null){
-            noteList = new ArrayList<>(hashSet);
-        } else{
-            noteList = new ArrayList<>();
+        Type collectionType = new TypeToken<ArrayList<Note>>(){}.getType();
+        noteList = gson.fromJson(jsonNoteList, collectionType);
+        if(noteList == null){
+            noteList = new ArrayList<Note>();
         }
 
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,noteList);
-        noteListView.setAdapter(arrayAdapter);
+    }
+
+    private void setListView(){
+        noteAdapter = new NoteAdapter(this, noteList);
+
+        noteListView.setAdapter(noteAdapter);
 
         noteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -76,22 +91,35 @@ public class MainActivity extends AppCompatActivity {
                 final int position = i;
 
                 new AlertDialog.Builder(MainActivity.this)
-                                .setTitle("Delete")
-                                .setMessage("Do you want to delete this note?")
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        noteList.remove(position);
-                                        sharedPreferences.edit().putStringSet("noteList", new HashSet<String>(noteList)).apply();
-                                        arrayAdapter.notifyDataSetChanged();
-                                    }
-                                })
-                                .setNegativeButton("No", null)
-                                .show();
+                        .setTitle("Delete")
+                        .setMessage("Do you want to delete this note?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                noteList.remove(position);
+                                String jsonNoteList = gson.toJson(noteList);
+                                sharedPreferences.edit().putString("noteList", jsonNoteList).apply();
+                                noteAdapter.notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
                 ;
                 return true;
             }
         });
+    }
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        noteListView = findViewById(R.id.noteListView);
+        sharedPreferences = this.getSharedPreferences("com.example.tengzhongwei.simplenote", Context.MODE_PRIVATE);
+        gson = new Gson();
+
+        retrieveStorage();
+        setListView();
     }
 }
