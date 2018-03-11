@@ -40,6 +40,7 @@ public class NoteDetailActivity extends AppCompatActivity {
         String content = editNoteTextView.getText().toString();
         String title = titleTextView.getText().toString();
         Date date = myCalendar.getTime();
+        boolean addReminder = checkBox.isChecked();
 
         if(index>-1){
             note.setContent(content);
@@ -50,6 +51,20 @@ public class NoteDetailActivity extends AppCompatActivity {
             note = new Note(title,content,date);
             MainActivity.noteList.add(note);
         }
+
+        if(addReminder){
+            // add a event to android calendar
+            // myCalendar = Calendar.getInstance();
+            Intent intent = new Intent(Intent.ACTION_EDIT);
+            intent.setType("vnd.android.cursor.item/event");
+            intent.putExtra("beginTime", myCalendar.getTimeInMillis());
+            intent.putExtra("allDay", true);
+            intent.putExtra("rrule", "FREQ=YEARLY");
+            intent.putExtra("endTime", myCalendar.getTimeInMillis()+60*60*1000);
+            intent.putExtra("title", note.getTitle());
+            startActivity(intent);
+        }
+
         // TODO... need to add Private Mode to allow only this app store data on this device (internal storage)
         // TODO... File creation mode: the default mode, where the created file can only be accessed by the calling application (or all applications sharing the same user ID).
         //SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.tengzhongwei.simplenote", Context.MODE_PRIVATE);
@@ -114,9 +129,11 @@ public class NoteDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (checkBox.isChecked()) {
                     //add reminder to this note based on time user selected
+                    Toast.makeText(getApplicationContext(), "Click save to add a reminder", Toast.LENGTH_SHORT).show();
                     Log.i("checkbox", String.valueOf(checkBox.isChecked()));
                 }else{
                     //check if a reminder was added, delete it, otherwise do nothing
+                    Toast.makeText(getApplicationContext(), "Reminder removed", Toast.LENGTH_SHORT).show();
                     Log.i("checkbox", String.valueOf(checkBox.isChecked()));
                 }
             }
