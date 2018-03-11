@@ -58,10 +58,7 @@ public class NoteDetailActivity extends AppCompatActivity {
     private void updateLabel() {
         if(myCalendar != null){
             dateTextView.setText(sdf.format(myCalendar.getTime()));
-        } else {
-            dateTextView.setText(sdf.format(Calendar.getInstance().getTime()));
         }
-
     }
 
     private void startCalendar(){
@@ -113,16 +110,15 @@ public class NoteDetailActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.saveButton);
         editNoteTextView = findViewById(R.id.editNoteTextView);
         titleTextView = findViewById(R.id.titleTextView);
+        dateTextView = findViewById(R.id.dateTextView);
         String myFormat = "MM/dd/yy"; //In which you need put here
         sdf = new SimpleDateFormat(myFormat, Locale.US);
         gson = new Gson();
 
+        dateTextView.setText(sdf.format(Calendar.getInstance().getTime()));
         getTitleContent();
-
-
         startCalendar();
 
-        updateLabel();
 
 
 
