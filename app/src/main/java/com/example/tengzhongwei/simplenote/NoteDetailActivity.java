@@ -7,10 +7,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -31,6 +34,7 @@ public class NoteDetailActivity extends AppCompatActivity {
     Note note;
     int index;
     Gson gson;
+    CheckBox checkBox;
 
     public void onSaveButtonClick(View view){
         String content = editNoteTextView.getText().toString();
@@ -103,6 +107,22 @@ public class NoteDetailActivity extends AppCompatActivity {
 
     }
 
+    private void setReminder(){
+
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkBox.isChecked()) {
+                    //add reminder to this note based on time user selected
+                    Log.i("checkbox", String.valueOf(checkBox.isChecked()));
+                }else{
+                    //check if a reminder was added, delete it, otherwise do nothing
+                    Log.i("checkbox", String.valueOf(checkBox.isChecked()));
+                }
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,13 +134,12 @@ public class NoteDetailActivity extends AppCompatActivity {
         String myFormat = "MM/dd/yy"; //In which you need put here
         sdf = new SimpleDateFormat(myFormat, Locale.US);
         gson = new Gson();
+        checkBox = (CheckBox) findViewById(R.id.checkBox);
 
         dateTextView.setText(sdf.format(Calendar.getInstance().getTime()));
         getTitleContent();
         startCalendar();
-
-
-
+        setReminder();
 
     }
 }

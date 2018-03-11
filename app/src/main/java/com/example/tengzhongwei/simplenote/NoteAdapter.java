@@ -11,10 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-/**
- * Created by tengzhongwei on 3/10/18.
- */
-
 public class NoteAdapter extends ArrayAdapter<Note> {
     public NoteAdapter(Context context, ArrayList<Note> notes) {
         super(context, 0, notes);

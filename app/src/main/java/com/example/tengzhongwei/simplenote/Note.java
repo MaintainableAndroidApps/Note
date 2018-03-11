@@ -3,10 +3,6 @@ package com.example.tengzhongwei.simplenote;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by tengzhongwei on 3/10/18.
- */
-
 public class Note implements Serializable {
     private String title;
     private String content;

@@ -1,9 +1,5 @@
 package com.example.tengzhongwei.simplenote;
 
-/**
- * Created by tengzhongwei on 3/9/18.
- */
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
