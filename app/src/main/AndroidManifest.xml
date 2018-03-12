@@ -5,6 +5,13 @@
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
+    <!-- use self defined permission -->
+    <uses-permission android:name="android.myPermission.broadcast"/>
+
+    <!-- define a permission for broadcast -->
+    <!-- the sender will be able to use this permission and send broadcasts to receiver only when both the sender and the receiver apps are signed by the same developer certificate. -->
+    <permission android:name="android.myPermission.broadcast" android:label="my_permission" android:protectionLevel="signature"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,6 +32,13 @@
             android:name=".MyNewIntentService"
             android:exported="false" >
         </service>
+
+        <receiver
+            android:name=".MyReceiver">
+            <intent-filter>
+                <action android:name="com.example.tengzhongwei.simplenote.actions.notification_action"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 

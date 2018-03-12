@@ -17,8 +17,6 @@ public class MyNewIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         Notification.Builder builder = new Notification.Builder(this);
-//        builder.setContentTitle("My Title");
-//        builder.setContentText("This is the Body");
         builder.setContentTitle(intent.getStringExtra("title"));
         builder.setContentText(intent.getStringExtra("content"));
         builder.setSmallIcon(android.R.drawable.ic_btn_speak_now);

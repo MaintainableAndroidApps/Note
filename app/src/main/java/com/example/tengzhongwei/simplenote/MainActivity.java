@@ -7,29 +7,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.ArraySet;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
-import java.security.PrivateKey;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Locale;
+import java.util.Calendar;
+
 
 public class MainActivity extends AppCompatActivity {
     ListView noteListView;
@@ -39,22 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private Gson gson;
     private SimpleDateFormat sdf;
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater menuInflater = this.getMenuInflater();
-//        menuInflater.inflate(R.menu.main_menu, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-        if(item.getItemId() == R.id.addNew){
-            Intent intent = new Intent(this, NoteDetailActivity.class);
-            startActivity(intent);
-        }
-        return true;
-    }
 
     public void newMemo(View view){
         Intent intent = new Intent(this, NoteDetailActivity.class);
@@ -62,18 +35,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void retrieveStorage(){
-        //        HashSet<String> hashSet = (HashSet<String>) sharedPreferences.getStringSet("noteList", null);
-//        if(hashSet != null){
-//            noteList = new ArrayList<>(hashSet);
-//        } else{
-//            noteList = new ArrayList<>();
-//        }
         String jsonNoteList = sharedPreferences.getString("noteList","");
 
         Type collectionType = new TypeToken<ArrayList<Note>>(){}.getType();
         noteList = gson.fromJson(jsonNoteList, collectionType);
         if(noteList == null){
             noteList = new ArrayList<Note>();
+            noteList.add(new Note("Example Note", "This is an example note.", Calendar.getInstance().getTime(), false));
         }
 
     }

@@ -1,10 +1,8 @@
 package com.example.tengzhongwei.simplenote;
 
+import android.Manifest;
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -24,11 +22,8 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
 import java.util.Locale;
 
 public class NoteDetailActivity extends AppCompatActivity {
@@ -60,29 +55,35 @@ public class NoteDetailActivity extends AppCompatActivity {
             note.setRemind(addReminder);
             MainActivity.noteList.set(index, note);
         } else {
-            note = new Note(title,content,date, addReminder);
+            note = new Note(title, content, date, addReminder);
             MainActivity.noteList.add(note);
             index = MainActivity.noteList.size()-1;
         }
 
         if(addReminder){
 
-            //TODO: CHANGE THIS FUNCTION TO LIMIT BROADCASTING
-//                    Intent notifyIntent = new Intent(getApplicationContext(),MyReceiver.class);
-//                    PendingIntent pendingIntent = PendingIntent.getBroadcast
-//                            (NoteDetailActivity.this, 1, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            // Below is the version using broad cast -> this app is sending a broadcast to it self, itself is a receiver
+            // permission is self-defined -> when receive the broadcast successfully, onReceive method will send the intent to intent service -> alarm
+            Intent notifyIntent = new Intent(getApplicationContext(), MyReceiver.class);
+            notifyIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+            notifyIntent.setAction("com.example.tengzhongwei.simplenote.actions.notification_action");
+            notifyIntent.putExtra("title",note.getTitle());
+            notifyIntent.putExtra("content", note.getContent());
+            sendBroadcast(notifyIntent, "android.myPermission.broadcast");
 
-            Intent myIntent =  new Intent(NoteDetailActivity.this, MyNewIntentService.class);
-            myIntent.putExtra("title",note.getTitle());
-            myIntent.putExtra("content", note.getContent());
-            //TODO: REQUEST C0DE SHOULD BE UNIQUE FOR EACH EVENT
-            PendingIntent pendingIntent = PendingIntent.getService(NoteDetailActivity.this, index+100, myIntent, 0);
-            AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+              // Below is the version not using Broadcast but using pending intent -> intent service -> alarm
+//            Intent myIntent =  new Intent(NoteDetailActivity.this, MyNewIntentService.class);
+//            myIntent.putExtra("title",note.getTitle());
+//            myIntent.putExtra("content", note.getContent());
+
+              // REQUEST C0DE SHOULD BE UNIQUE FOR EACH EVENT
+//            PendingIntent pendingIntent = PendingIntent.getService(NoteDetailActivity.this, index+100, notifyIntent, 0);
+//            AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
 
             //For test, get current time
             //Calendar c = Calendar.getInstance();
 
-            alarmManager.set(AlarmManager.RTC_WAKEUP, myCalendar.getTimeInMillis(), pendingIntent);
+//            alarmManager.set(AlarmManager.RTC_WAKEUP, myCalendar.getTimeInMillis(), pendingIntent);
         } else {
             // Cancel
             Intent myIntent =  new Intent(NoteDetailActivity.this, MyNewIntentService.class);
@@ -173,9 +174,6 @@ public class NoteDetailActivity extends AppCompatActivity {
             timeTextView.setText(timeFormat.format(note.getDate()));
             checkBox.setChecked(note.getRemind());
         }
-
-
-
     }
 
     //Make Toast when reminder is clicked
@@ -187,12 +185,9 @@ public class NoteDetailActivity extends AppCompatActivity {
                 if (checkBox.isChecked()) {
                     //add reminder to this note based on time user selected
                     Toast.makeText(getApplicationContext(), "Click save to add a reminder", Toast.LENGTH_SHORT).show();
-                    Log.i("checkbox", String.valueOf(checkBox.isChecked()));
-
                 }else{
                     //check if a reminder was added, delete it, otherwise do nothing
                     Toast.makeText(getApplicationContext(), "Reminder removed", Toast.LENGTH_SHORT).show();
-                    Log.i("checkbox", String.valueOf(checkBox.isChecked()));
                 }
             }
         });
@@ -222,7 +217,6 @@ public class NoteDetailActivity extends AppCompatActivity {
         getTitleContent();
         startCalendar();
         setReminder();
-
 
     }
 }
