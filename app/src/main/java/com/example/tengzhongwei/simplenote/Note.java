@@ -7,11 +7,13 @@ public class Note implements Serializable {
     private String title;
     private String content;
     private Date date;
+    private boolean remind;
 
-    public Note(String title, String content, Date date){
+    public Note(String title, String content, Date date, boolean remind){
         this.title = title;
         this.content = content;
         this.date = date;
+        this.remind = remind;
     }
 
     public String getTitle(){
@@ -26,6 +28,10 @@ public class Note implements Serializable {
         return this.date;
     }
 
+    public boolean getRemind() {
+        return this.remind;
+    }
+
     public void setTitle(String title){
         this.title = title;
     }
@@ -37,4 +43,6 @@ public class Note implements Serializable {
     public void setDate(Date date){
         this.date = date;
     }
+
+    public void setRemind(boolean remind) {this.remind = remind;}
 }
