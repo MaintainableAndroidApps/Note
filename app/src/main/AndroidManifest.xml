@@ -26,7 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NoteDetailActivity"></activity>
+        <activity android:name=".NoteDetailActivity"/>
 
         <service
             android:name=".MyNewIntentService"
@@ -34,7 +34,12 @@
         </service>
 
         <receiver
-            android:name=".MyReceiver">
+            android:name=".MyReceiver"
+            android:permission="android.myPermission.broadcast"
+            >
+        <!--<receiver-->
+            <!--android:name=".MyReceiver"-->
+            <!--&gt;-->
             <intent-filter>
                 <action android:name="com.example.tengzhongwei.simplenote.actions.notification_action"/>
             </intent-filter>

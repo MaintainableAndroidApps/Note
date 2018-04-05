@@ -11,8 +11,12 @@ public class MyReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        String title = intent.getStringExtra("title");
+        String content = intent.getStringExtra("content");
 
         Intent notifyIntent = new Intent(context, MyNewIntentService.class);
+        notifyIntent.putExtra("title",title);
+        notifyIntent.putExtra("content", content);
         context.startService(notifyIntent);
     }
 }
