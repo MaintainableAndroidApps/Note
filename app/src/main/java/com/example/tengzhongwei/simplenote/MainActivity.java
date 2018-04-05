@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 
+// TODO: Please find the permission misuse and correct it.
+// TODO: Please change hardcoded string to reference
 public class MainActivity extends AppCompatActivity {
     ListView noteListView;
     static ArrayList<Note> noteList;
@@ -91,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         noteListView = findViewById(R.id.noteListView);
         sharedPreferences = this.getSharedPreferences("com.example.tengzhongwei.simplenote", Context.MODE_PRIVATE);
+        //sharedPreferences = this.getSharedPreferences("com.example.tengzhongwei.simplenote", Context.MODE_WORLD_WRITEABLE);
         gson = new Gson();
 
         retrieveStorage();

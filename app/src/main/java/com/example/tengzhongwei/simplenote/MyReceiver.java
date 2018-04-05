@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-
+// TODO: Please change hardcoded string to reference
 public class MyReceiver extends BroadcastReceiver {
     public MyReceiver() {
     }

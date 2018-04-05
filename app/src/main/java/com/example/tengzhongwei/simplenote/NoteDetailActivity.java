@@ -26,6 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+// TODO: Please change hardcoded string to reference
 public class NoteDetailActivity extends AppCompatActivity {
     EditText editNoteTextView;
     EditText dateTextView;

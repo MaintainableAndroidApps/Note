@@ -6,7 +6,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v4.app.NotificationManagerCompat;
 
-
+// TODO: Please change hardcoded string to reference
 public class MyNewIntentService extends IntentService {
     private static final int NOTIFICATION_ID = 3;
 
