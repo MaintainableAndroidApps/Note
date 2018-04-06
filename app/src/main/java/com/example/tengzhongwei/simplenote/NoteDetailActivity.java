@@ -67,35 +67,48 @@ public class NoteDetailActivity extends AppCompatActivity {
 
             // Below is the version using broad cast -> this app is sending a broadcast to it self, itself is a receiver
             // permission is self-defined -> when receive the broadcast successfully, onReceive method will send the intent to intent service -> alarm
+
+            //TODO: First Solution
+            /**
+             * notifyIntent = new Intent(getApplicationContext(), MyReceiver.class);
+             * notifyIntent.putExtra("title",note.getTitle());
+             * notifyIntent.putExtra("content", note.getContent());
+             * pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), index+100, notifyIntent, 0 );
+             *  AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+             * alarmManager.set(AlarmManager.RTC_WAKEUP, myCalendar.getTimeInMillis(), pendingIntent);
+             */
+            //TODO: Second Solution
+
+             notifyIntent = new Intent(getApplicationContext(), MyReceiver.class);
+             notifyIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+             notifyIntent.setAction("com.example.tengzhongwei.simplenote.actions.notification_action");
+             notifyIntent.putExtra("title",note.getTitle());
+             notifyIntent.putExtra("content", note.getContent());
+             pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), index+100, notifyIntent, 0 );
+             AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+             alarmManager.set(AlarmManager.RTC_WAKEUP, myCalendar.getTimeInMillis(), pendingIntent);
+
+
+            //TODO: Third Solution, Require API 24
+            /**
             notifyIntent = new Intent(getApplicationContext(), MyReceiver.class);
             notifyIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-            //TODO: SET ACTION DOES NOT WORK
             notifyIntent.setAction("com.example.tengzhongwei.simplenote.actions.notification_action");
             notifyIntent.putExtra("title",note.getTitle());
             notifyIntent.putExtra("content", note.getContent());
             //sendBroadcast(notifyIntent, "android.myPermission.broadcast");
-
-            pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), index+100, notifyIntent, 0 );
-//
-//            try {
-//                pendingIntent.send(this, 0, notifyIntent, null, null, "android.myPermission.broadcast");
-//            } catch (PendingIntent.CanceledException e) {
-//                e.printStackTrace();
-//            }
-
             AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-            Calendar c = Calendar.getInstance();
-            alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-//            alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), "send_notify", new AlarmManager.OnAlarmListener() {
-//                @Override
-//                public void onAlarm() {
-//                    try{
-//                        pendingIntent.send(getApplicationContext(), 0, notifyIntent, null, null, "android.myPermission.broadcast");
-//                    } catch (PendingIntent.CanceledException e) {
-//
-//                    }
-//                }
-//            }, null);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, myCalendar.getTimeInMillis(), "send_notify", new AlarmManager.OnAlarmListener() {
+                @Override
+                public void onAlarm() {
+                    try{
+                        pendingIntent.send(getApplicationContext(), 0, notifyIntent, null, null, "android.myPermission.broadcast");
+                    } catch (PendingIntent.CanceledException e) {
+
+                    }
+                }
+            }, null);
+             */
 
 
               // Below is the version not using Broadcast but using pending intent -> intent service -> alarm
