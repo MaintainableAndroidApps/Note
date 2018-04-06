@@ -25,7 +25,7 @@ You now have a working app at this point, please find all   ***//ToDo...*** in t
 
 * Redundant Permission: In AndroidManifest.xml file, please find redundant permissions and delete unnecessary ones, in case of information leakage.
 * Constant Maintenance: It is not good practice to hard code strings into your layout files. It also makes the app harder to maintain. Please find hard coded string in the project and add them to a string resource file and then reference them from your layout.
-* Secure Default: (Broadcast)
+* Secure Default: The App broadcasts a notification when events are triggered. Edit the code in NoteDetailActivity.java to ensure secure broadcast.
 * Information Leak: According to Android documentation, *"By default, files saved to the internal storage are private to your app, and other apps cannot access them. This makes internal storage a good place for internal app data that the user doesn't need to directly access."* Please find the permission misuse in the project and correct it.
 
 
