@@ -1,6 +1,6 @@
 # Android Assignment (draft)
 
-In this assignment, we prepared a security checklist based on our classes and a "messy" Android app. The given app violates different security rules so that it is not secure and maintainable. You neet to go through the code structure and fill out the checklist form.
+In this assignment, we prepared a security checklist based on our classes and a "messy" Android app. The given app violates different security rules so that it is not secure and maintainable. You need to go through the code structure and fill out the checklist form.
 
 
 ##Economy of mechanism
