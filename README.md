@@ -95,7 +95,7 @@ Students need to choose Yes/No to describe the given app for each problem. You s
 
 [Security Tips](https://developer.android.com/training/articles/security-tips)
 
-[Enforcing Least Privilege with Android Permissions in Mobile App Development(https://cups.cs.cmu.edu/soups/2014/posters/soups2014_posters-paper42.pdf)
+[Enforcing Least Privilege with Android Permissions in Mobile App Development](https://cups.cs.cmu.edu/soups/2014/posters/soups2014_posters-paper42.pdf)
 
 [Android log difference](https://stackoverflow.com/questions/7959263/android-log-v-log-d-log-i-log-w-log-e-when-to-use-each-one)
 
