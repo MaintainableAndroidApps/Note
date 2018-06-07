@@ -7,11 +7,14 @@
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <!-- use self defined permission -->
-    <uses-permission android:name="android.myPermission.broadcast"/>
+    <uses-permission android:name="android.myPermission.broadcast" />
 
     <!-- define a permission for broadcast -->
     <!-- the sender will be able to use this permission and send broadcasts to receiver only when both the sender and the receiver apps are signed by the same developer certificate. -->
-    <permission android:name="android.myPermission.broadcast" android:label="my_permission" android:protectionLevel="signature"/>
+    <permission
+        android:name="android.myPermission.broadcast"
+        android:label="my_permission"
+        android:protectionLevel="signature" />
 
     <application
         android:allowBackup="true"
@@ -27,25 +30,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NoteDetailActivity"/>
+        <activity android:name=".NoteDetailActivity" />
 
         <service
             android:name=".MyNewIntentService"
-            android:exported="false" >
-        </service>
+            android:exported="false" />
 
         <receiver
             android:name=".MyReceiver"
-            android:permission="android.myPermission.broadcast"
-            >
-        <!--<receiver-->
-            <!--android:name=".MyReceiver"-->
-            <!--&gt;-->
+            android:permission="android.myPermission.broadcast">
+
+            <!-- <receiver -->
+            <!-- android:name=".MyReceiver" -->
+            <!-- &gt; -->
             <intent-filter>
-                <action android:name="com.example.tengzhongwei.simplenote.actions.notification_action"/>
+                <action android:name="com.example.tengzhongwei.simplenote.actions.notification_action" />
             </intent-filter>
         </receiver>
 
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".ProfileActivity"></activity>
     </application>
 
 </manifest>

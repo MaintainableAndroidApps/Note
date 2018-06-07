@@ -7,12 +7,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -30,6 +33,22 @@ public class MainActivity extends AppCompatActivity {
     private Gson gson;
     private SimpleDateFormat sdf;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = this.getMenuInflater();
+        menuInflater.inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        if(item.getItemId() == R.id.login){
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
+        return true;
+    }
 
     public void newMemo(View view){
         Intent intent = new Intent(this, NoteDetailActivity.class);

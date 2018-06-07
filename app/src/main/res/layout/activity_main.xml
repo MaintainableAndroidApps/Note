@@ -22,4 +22,6 @@
         android:onClick="newMemo"
         android:text="New Memo"
         android:id="@+id/button" />
+
+
 </RelativeLayout>
