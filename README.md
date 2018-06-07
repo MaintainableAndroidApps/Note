@@ -1,10 +1,10 @@
-#Assignment 2 -- Test Version
+# Assignment 2 -- Test Version
 
 In this assignment, we will prepare you a security checklist based on our classes and a "messy" Android app. The given app violates different security rules so that it is not secure and maintainable. As an example, application, some problems are exaggerated for learning purposes in this application.
 You need to go through given codes and finish our checklist. Check all found problems. <b>Note that, this is not a detailed enough checklist in real Android development. </b>
 
 ## Security Principle Review
-###Economy of mechanism
+### Economy of mechanism
 Economy of mechanism means that, Android developers need to keep codes simple so that errors are less likely occur.
 Complex mechanism usually has following potential problems:
 
@@ -16,7 +16,7 @@ Complex mechanism usually has following potential problems:
 
 
 
-###Least privilege
+### Least privilege
 Least privilege principle requires developers pay extra attention to permission they give to every component in the app so that only minimal number of permissions are declared in your app.
 
 Some topics are discussed in Google official document.
@@ -32,11 +32,11 @@ Some topics are discussed in Google official document.
 
 
 
-###Complete mediation
+### Complete mediation
 We should check access to sensitive data every time if possible, which requires developers to be aware of sensitive data in the app.
 
 
-###Secure default
+### Secure default
 We want default behavior of the application to be secure since users usually are not aware of security problems.
 Users tend to ignore messages, such as security warning, that they don't really understand.
 Other developer may don't understand the best way to interact with our code. simple way is default way. want the default behavior to be secure(such as handle data, unexpected input). On the other hand, new inexperienced users, may not operate your app incorrectly, which could also cause potential problems. You should ensure following benefits for your app.
@@ -54,7 +54,7 @@ Other developer may don't understand the best way to interact with our code. sim
 Students need to choose Yes/No to describe the given app for each problem. You should find at least 10 problems in the app.
 
 
-##Checklist (For grading)
+## Checklist (For grading)
 
 | Problem        | Check           | Problem Location |
 | ------------- |:-------------:|:-------------:|
@@ -89,7 +89,7 @@ Students need to choose Yes/No to describe the given app for each problem. You s
 | Don't use ignorable security dialog if you can perform a security protection in a better way | Yes | \ |
 
 
-##Reference
+## Reference
 
 [Economy of Mechanism](https://www.us-cert.gov/bsi/articles/knowledge/principles/economy-of-mechanism)
 
