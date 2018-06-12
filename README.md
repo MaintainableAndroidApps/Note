@@ -59,7 +59,7 @@ Students need to choose Yes/No to describe the given app for each problem. You s
 | Problem        | Check           | Problem Location |
 | ------------- |:-------------:|:-------------:|
 | <b>Economy of mechanism</b> ||
-| There are not verbose function calls      | No | LoginActivity |
+| Check the maximum number of embedded function calls     | 3 | LoginActivity |
 | Follow same naming convention in a program | No | cancelButton & cancel_button in the file|
 | No redundant codes      	 |  No  |  NoteDetailActivity (remove unused codes) |
 | No redundant comments      	 |  No  | NoteDetailActivity |
